@@ -38,15 +38,19 @@
             border: 1px solid black;
         }
         
-        .datuak {
-            left: 0px;
-            margin-left: auto;
-            margin-right: auto;
+        .datuak-taula {
+            left: 530px;
             position: absolute;
-            top: 0;
-            width: 680px;
+            top: 140px;
         }
-
+                
+        #emaitza-bai, #emaitza-ez {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+            width: 75px;
+        }
+        
         #unitatea-izena {
             font-size: 20px;
             font-weight: bold;
@@ -63,11 +67,11 @@
             <div class="datuak">
                 <table class="datuak-taula">
 					<tr>
-						<td>EZ</td>
+						<td><img src="img/ez.png"></td>
 						<td id="emaitza-ez"></td>
 					</tr>
                     <tr>
-						<td>BAI</td>
+						<td><img src="img/bai.png"></td>
 						<td id="emaitza-bai"></td>
 					</tr>
 				</table>
@@ -149,10 +153,8 @@
                            //$("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
                            $("#unitatea-izena").text(d.properties.IZENA_EUS);
                            
-                           console.log(d.properties.datuak);
-                           
-                           $("#emaitza-bai").text((100.0 - parseFloat(d.properties.datuak.Ez)).toFixed(2).replace(".", ","));
-                           $("#emaitza-ez").text(d.properties.datuak.Ez.replace(".", ","));
+                           $("#emaitza-bai").text("%" + (100.0 - parseFloat(d.properties.datuak.Ez)).toFixed(2).replace(".", ","));
+                           $("#emaitza-ez").text("%" + d.properties.datuak.Ez.replace(".", ","));
                            
                        });
                     
