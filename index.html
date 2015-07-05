@@ -87,38 +87,66 @@
             var svg = d3.select("#mapa").append("svg")
                 .attr("width", width)
                 .attr("height", height);
-                             
-            d3.json("greziako-eskualdeak.json", function(error, grezia) {
+            
+            // Datuen banatzailea ez denez koma, analizatzaile pertsonalizatu bat sortu behar dugu.
+            var dsv = d3.dsv(";", "text/plain");
+            
+            // Emaitzak irakurri analitzatzaile pertsonalizatua erabiliz.
+            dsv("datuak/emaitzak.csv", function(error, datuak) {
                 
                 if (error) return console.error(error);
-                console.log(grezia.objects.eskualdeak);
+                console.log(datuak);
+                    
+                d3.json("greziako-eskualdeak.json", function(error, grezia) {
+                    
+                    if (error) return console.error(error);
+                    console.log(grezia.objects.eskualdeak);
+                    
+                    // d: Emaitzen arrayko eskualde bakoitzaren propietateak biltzen dituen objektua.
+                    // i: indizea
+                    datuak.forEach(function(d, i) {
+                        
+                        // e: Datu geografikoetako eskualdearen propietateak
+                        // j: indizea
+                        topojson.feature(grezia, grezia.objects.eskualdeak).features.forEach(function(e, j) {
+                            
+                            if (d.Eskualdea === e.properties.IZENA) {
+                                e.properties.datuak = d;
+                            }
+                            
+                        });
+                        
+                    });
+                    
+                    svg.selectAll(".unitateak")
+                       .data(topojson.feature(grezia, grezia.objects.eskualdeak).features)
+                       .enter().append("path")
+                       .attr("class", "unitateak")
+                       .attr("d", path)
+                       .attr("fill", function(d) {
+                           // Bai: #3E9A97
+                           // Ez: #EC682E
+                           return "#EC682E";
+                       })
+                       .on("mouseover", function(d) {
+                           //$("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
+                           $("#unitatea-izena").text(d.properties.IZENA_EUS);
+                           console.log(d.properties.datuak);
+                       });
+                    
+                    // Eskualdeen arteko mugak (a !== b)
+                    svg.append("path")
+                        .datum(topojson.mesh(grezia, grezia.objects.eskualdeak, function(a, b) { return a !== b; }))
+                        .attr("d", path)
+                        .attr("class", "eskualde-mugak");
+                    
+                    // Kanpo-mugak (a === b)
+                    svg.append("path")
+                        .datum(topojson.mesh(grezia, grezia.objects.eskualdeak, function(a, b) { return a === b; }))
+                        .attr("d", path)
+                        .attr("class", "kanpo-mugak");
+                });
                 
-                svg.selectAll(".unitateak")
-                   .data(topojson.feature(grezia, grezia.objects.eskualdeak).features)
-                   .enter().append("path")
-                   .attr("class", "unitateak")
-                   .attr("d", path)
-                   .attr("fill", function(d) {
-                       // Bai: #3E9A97
-                       // Ez: #EC682E
-                       return "#EC682E";
-                   })
-                   .on("mouseover", function(d) {
-                       //$("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
-                       $("#unitatea-izena").text(d.properties.IZENA_EUS);
-                   });
-                
-                // Eskualdeen arteko mugak (a !== b)
-                svg.append("path")
-                    .datum(topojson.mesh(grezia, grezia.objects.eskualdeak, function(a, b) { return a !== b; }))
-                    .attr("d", path)
-                    .attr("class", "eskualde-mugak");
-                
-                // Kanpo-mugak (a === b)
-                svg.append("path")
-                    .datum(topojson.mesh(grezia, grezia.objects.eskualdeak, function(a, b) { return a === b; }))
-                    .attr("d", path)
-                    .attr("class", "kanpo-mugak");
             });
         </script>
     </body>
