@@ -99,7 +99,8 @@
                    .attr("class", "unitateak")
                    .attr("d", path)
                    .on("mouseover", function(d) {
-                       $("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
+                       //$("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
+                       $("#unitatea-izena").text(d.properties.IZENA_EUS);
                    });
                 
                 // Eskualdeen arteko mugak (a !== b)
