@@ -59,8 +59,18 @@
     <body>
         <div id="kontainerra">
 			<div id="mapa"></div>
+            <div id="unitatea-izena"></div>
             <div class="datuak">
-				<div id="unitatea-izena"></div>
+                <table class="datuak-taula">
+					<tr>
+						<td>EZ</td>
+						<td id="emaitza-ez"></td>
+					</tr>
+                    <tr>
+						<td>BAI</td>
+						<td id="emaitza-bai"></td>
+					</tr>
+				</table>
             </div>
         </div>
         
@@ -88,11 +98,8 @@
                 .attr("width", width)
                 .attr("height", height);
             
-            // Datuen banatzailea ez denez koma, analizatzaile pertsonalizatu bat sortu behar dugu.
-            var dsv = d3.dsv(";", "text/plain");
-            
-            // Emaitzak irakurri analitzatzaile pertsonalizatua erabiliz.
-            dsv("datuak/emaitzak.csv", function(error, datuak) {
+            // Emaitzak irakurri.
+            d3.csv("datuak/emaitzak.csv", function(error, datuak) {
                 
                 if (error) return console.error(error);
                 console.log(datuak);
@@ -143,6 +150,9 @@
                            $("#unitatea-izena").text(d.properties.IZENA_EUS);
                            
                            console.log(d.properties.datuak);
+                           
+                           $("#emaitza-bai").text((100.0 - parseFloat(d.properties.datuak.Ez)).toFixed(2).replace(".", ","));
+                           $("#emaitza-ez").text(d.properties.datuak.Ez.replace(".", ","));
                            
                        });
                     
