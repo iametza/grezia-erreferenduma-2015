@@ -10,15 +10,15 @@
 
         .eskualde-mugak {
             fill: none;
-            stroke: #777;
+            stroke: #000;
             stroke-width: 0.5px;
             stroke-linejoin: round;
         }
 
         .kanpo-mugak {
             fill: none;
-            stroke: #777;
-            stroke-width: 1px;
+            stroke: #000;
+            stroke-width: 0.5px;
             stroke-linejoin: round;
         }
 
@@ -98,6 +98,11 @@
                    .enter().append("path")
                    .attr("class", "unitateak")
                    .attr("d", path)
+                   .attr("fill", function(d) {
+                       // Bai: #3E9A97
+                       // Ez: #EC682E
+                       return "#EC682E";
+                   })
                    .on("mouseover", function(d) {
                        //$("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
                        $("#unitatea-izena").text(d.properties.IZENA_EUS);
