@@ -124,14 +124,26 @@
                        .attr("class", "unitateak")
                        .attr("d", path)
                        .attr("fill", function(d) {
+                           
                            // Bai: #3E9A97
                            // Ez: #EC682E
-                           return "#EC682E";
+                           
+                           // Ezetza nagusitu bada...
+                           if (parseFloat(d.properties.datuak.Ez) > 50.0) {
+                               return "#EC682E";
+                           }
+                           
+                           // Baietza nagusitu bada...
+                           return "#3E9A97";
+                           
                        })
                        .on("mouseover", function(d) {
+                           
                            //$("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
                            $("#unitatea-izena").text(d.properties.IZENA_EUS);
+                           
                            console.log(d.properties.datuak);
+                           
                        });
                     
                     // Eskualdeen arteko mugak (a !== b)
