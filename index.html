@@ -18,7 +18,7 @@
         .kanpo-mugak {
             fill: none;
             stroke: #777;
-            stroke-width: 2px;
+            stroke-width: 1px;
             stroke-linejoin: round;
         }
 
@@ -26,7 +26,7 @@
             margin: 0 auto 0 auto;
             width: 680px;
             position: relative;
-            height: 580px;
+            height: 680px;
             font-family: Arial,Helvetica,sans-serif !important;
             font-size: 16px;
         }
@@ -35,6 +35,7 @@
             display: block;
             margin-left: auto;
             margin-right: auto;
+            border: 1px solid black;
         }
 
         </style>
@@ -54,8 +55,8 @@
             
             // Maparen proiekzioaren xehetasunak.
             var projection = d3.geo.mercator()
-                .center([-22.0, 31.0])
-                .scale(100)
+                .center([24.0, 38.3])
+                .scale(4100)
                 .translate([width / 2, height / 2]);
             
             // Maparen bidearen generatzailea.
