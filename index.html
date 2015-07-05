@@ -79,10 +79,19 @@
             color: #e50000;
             text-decoration: none;
         }
+        
+        .hasierako-mezua {
+            left: 35px;
+            margin-top: 10px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+        }
         </style>
     </head>
     <body>
         <div id="kontainerra">
+            <div class="hasierako-mezua">Pasa sagua eskualdeen gainetik xehetasunak bistaratzeko.</div>
 			<div id="mapa"></div>
             <div id="unitatea-izena"></div>
             <div class="datuak">
@@ -135,13 +144,15 @@
             // Emaitzak irakurri.
             d3.csv("datuak/emaitzak.csv", function(error, datuak) {
                 
-                if (error) return console.error(error);
-                console.log(datuak);
+                if (error) {
+                    return console.error(error);
+                }
                     
                 d3.json("greziako-eskualdeak.json", function(error, grezia) {
                     
-                    if (error) return console.error(error);
-                    console.log(grezia.objects.eskualdeak);
+                    if (error) {
+                        return console.error(error);
+                    }
                     
                     // d: Emaitzen arrayko eskualde bakoitzaren propietateak biltzen dituen objektua.
                     // i: indizea
@@ -179,6 +190,8 @@
                            
                        })
                        .on("mouseover", function(d) {
+                           
+                           $(".hasierako-mezua").hide();
                            
                            //$("#unitatea-izena").text(d.properties.PER + " - " + d.properties.IZENA);
                            $("#unitatea-izena").text(d.properties.IZENA_EUS);
