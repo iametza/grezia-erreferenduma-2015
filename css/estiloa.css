@@ -65,8 +65,14 @@
     width: 250px;
 }
 
-#mapa-argia-logoa {
-    width: 130px;
+#kredituak-argia-logoa {
+    width: 120px;
+}
+
+#kredituak-iametza-logoa {
+    margin-bottom: -3px;
+    margin-left: 2px;
+    width: 125px;
 }
 
 a {
